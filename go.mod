@@ -1,6 +1,6 @@
 module hot-coffee
 
-go 1.25.5
+go 1.22
 
 tool github.com/air-verse/air
 
