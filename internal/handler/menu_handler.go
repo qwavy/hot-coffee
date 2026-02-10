@@ -18,7 +18,7 @@ func (h *MenuHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	menuItems, err := h.MenuService.GetAll()
 
 	if err != nil {
-		utils.SendError(w, http.StatusInternalServerError, "Error")
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
 	}
 
 	utils.SendJSON(w, http.StatusOK, menuItems)
@@ -30,7 +30,7 @@ func (h *MenuHandler) Get(w http.ResponseWriter, r *http.Request) {
 	menuItem, err := h.MenuService.GetById(productId)
 
 	if err != nil {
-		utils.SendError(w, http.StatusInternalServerError, "Error")
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
 	}
 
 	utils.SendJSON(w, http.StatusOK, menuItem)

@@ -17,6 +17,7 @@ func Router() *http.ServeMux {
 	menuHandler := handler.NewMenuHandler(menuService)
 
 	r.HandleFunc("GET /menu", menuHandler.GetAll)
+	r.HandleFunc("GET /menu/{id}", menuHandler.Get)
 
 	return r
 }

@@ -40,10 +40,10 @@ func (r *MenuRepository) GetById(productId string) (models.MenuItem, error) {
 	if err != nil {
 		return models.MenuItem{}, err
 	}
-
+	
 	for _, menuItem := range menuItems {
 		if menuItem.ID == productId {
-			return models.MenuItem{}, nil
+			return menuItem, nil
 		}
 	}
 
