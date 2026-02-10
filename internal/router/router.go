@@ -20,6 +20,7 @@ func Router() *http.ServeMux {
 	r.HandleFunc("GET /menu/{id}", menuHandler.GetById)
 	r.HandleFunc("DELETE /menu/{id}", menuHandler.DeleteById)
 	r.HandleFunc("POST /menu", menuHandler.CreateItem)
+	r.HandleFunc("PUT /menu/{id}", menuHandler.UpdateItem)
 
 	return r
 }

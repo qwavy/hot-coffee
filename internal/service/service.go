@@ -1,6 +1,5 @@
 package service
 
-//
 //import "hot-coffee/internal/dal"
 //
 //type Services struct {

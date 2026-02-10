@@ -23,11 +23,11 @@ func (s *MenuService) GetAll() ([]models.MenuItem, error) {
 	return menuItems, nil
 }
 
-func (s *MenuService) GetById(productId string) (models.MenuItem, error) {
+func (s *MenuService) GetById(productId string) (*models.MenuItem, error) {
 	menuItem, err := s.MenuRepository.GetById(productId)
 
 	if err != nil {
-		return models.MenuItem{}, err
+		return nil, err
 	}
 
 	return menuItem, err
@@ -39,4 +39,8 @@ func (s *MenuService) DeleteById(productId string) error {
 
 func (s *MenuService) CreateItem(menuItem models.MenuItem) error {
 	return s.MenuRepository.CreateItem(menuItem)
+}
+
+func (s *MenuService) UpdateItem(productId string, newMenuItem models.MenuItem) error {
+	return s.MenuRepository.UpdateItem(productId, newMenuItem)
 }

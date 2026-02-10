@@ -69,5 +69,28 @@ func (h *MenuHandler) CreateItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusNoContent)
+	w.WriteHeader(http.StatusCreated)
+}
+
+func (h *MenuHandler) UpdateItem(w http.ResponseWriter, r *http.Request) {
+	productId := r.PathValue("id")
+	defer r.Body.Close()
+
+	var newMenuItem models.MenuItem
+
+	err := json.NewDecoder(r.Body).Decode(&newMenuItem)
+
+	if err != nil {
+		utils.SendError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	err = h.MenuService.UpdateItem(productId, newMenuItem)
+
+	if err != nil {
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }
