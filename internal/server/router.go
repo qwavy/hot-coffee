@@ -1,4 +1,5 @@
-package router
+
+package server
 
 import (
 	"hot-coffee/internal/dal"
@@ -16,8 +17,17 @@ func Router() *http.ServeMux {
 
 	menuHandler := handler.NewMenuHandler(menuService)
 
+	orderRepository := dal.NewOrderRepository("data/orders.json")
+
+	orderService := service.NewOrderService(orderRepository)
+
+	orderHandler := handler.NewOrderHandler(orderService)
+
+	
 	r.HandleFunc("GET /menu", menuHandler.GetAll)
 	r.HandleFunc("GET /menu/{id}", menuHandler.Get)
+	r.HandleFunc("GET /order", orderHandler.GetAll)
+	r.HandleFunc("GET /order/{id}", orderHandler.Get)
 
 	return r
 }
