@@ -24,7 +24,7 @@ func (h *MenuHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	utils.SendJSON(w, http.StatusOK, menuItems)
 }
 
-func (h *MenuHandler) Get(w http.ResponseWriter, r *http.Request) {
+func (h *MenuHandler) GetById(w http.ResponseWriter, r *http.Request) {
 	productId := r.PathValue("id")
 
 	menuItem, err := h.MenuService.GetById(productId)
@@ -34,4 +34,15 @@ func (h *MenuHandler) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.SendJSON(w, http.StatusOK, menuItem)
+}
+
+func (h *MenuHandler) DeleteById(w http.ResponseWriter, r *http.Request) {
+	productId := r.PathValue("id")
+	err := h.MenuService.DeleteById(productId)
+
+	if err != nil {
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
