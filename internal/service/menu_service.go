@@ -36,3 +36,7 @@ func (s *MenuService) GetById(productId string) (models.MenuItem, error) {
 func (s *MenuService) DeleteById(productId string) error {
 	return s.MenuRepository.DeleteById(productId)
 }
+
+func (s *MenuService) CreateItem(menuItem models.MenuItem) error {
+	return s.MenuRepository.CreateItem(menuItem)
+}

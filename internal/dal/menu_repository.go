@@ -86,3 +86,21 @@ func (r *MenuRepository) DeleteById(productId string) error {
 
 	return nil
 }
+
+func (r *MenuRepository) CreateItem(menuItem models.MenuItem) error {
+	menuItems, err := r.list()
+
+	if err != nil {
+		return err
+	}
+
+	menuItems = append(menuItems, menuItem)
+
+	err = r.write(menuItems)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
