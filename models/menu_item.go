@@ -1,5 +1,7 @@
 package models
 
+import "errors"
+
 type MenuItem struct {
 	ID          string               `json:"product_id"`
 	Name        string               `json:"name"`
@@ -12,3 +14,7 @@ type MenuItemIngredient struct {
 	IngredientID string  `json:"ingredient_id"`
 	Quantity     float64 `json:"quantity"`
 }
+
+var (
+	MenuItemNotFound = errors.New("menu item not found")
+)

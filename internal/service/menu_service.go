@@ -22,3 +22,13 @@ func (s *MenuService) GetAll() ([]models.MenuItem, error) {
 
 	return menuItems, nil
 }
+
+func (s *MenuService) GetById(productId string) (models.MenuItem, error) {
+	menuItem, err := s.MenuRepository.GetById(productId)
+
+	if err != nil {
+		return models.MenuItem{}, err
+	}
+
+	return menuItem, err
+}

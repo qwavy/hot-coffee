@@ -250,8 +250,8 @@ Implement the following RESTful API endpoints:
 
 - **Aggregations:**
 
-    - `GET /reports/total-sales`: Get the total sales amount.
-    - `GET /reports/popular-items`: Get a list of popular menu items.
+    - `GET /reports/total-sales`: GetById the total sales amount.
+    - `GET /reports/popular-items`: GetById a list of popular menu items.
 
 #### Updating Inventory Upon Order Fulfillment
 When an order is created and processed, the application must:
