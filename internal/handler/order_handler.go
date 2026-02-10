@@ -27,3 +27,14 @@ func (h *OrderHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	utils.SendJSON(w, http.StatusOK, orderItem)
 }
 
+func (h *OrderHandler) Get(w http.ResponseWriter, r *http.Request) {
+	productId := r.PathValue("id")
+
+	orderItem, err := h.OrderService.GetById(productId)
+
+	if err != nil {
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
+	}
+
+	utils.SendJSON(w, http.StatusOK, orderItem)
+}

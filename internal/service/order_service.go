@@ -13,7 +13,7 @@ func NewOrderService(orderRepository *dal.OrderRepository) *OrderService {
 	return &OrderService{OrderRepository: orderRepository}
 }
 
-func (s *OrderService) GetAll() ([]models.OrderItem, error) {
+func (s *OrderService) GetAll() ([]models.Order, error) {
 	orderItem, err := s.OrderRepository.GetAll()
 
 	if err != nil {
@@ -21,4 +21,13 @@ func (s *OrderService) GetAll() ([]models.OrderItem, error) {
 	}
 
 	return orderItem, nil
+}
+func (s *OrderService) GetById(productId string) (models.Order, error) {
+	order, err := s.OrderRepository.GetById(productId)
+
+	if err != nil {
+		return models.Order{}, err
+	}
+
+	return order, err
 }
