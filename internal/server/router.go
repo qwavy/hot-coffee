@@ -1,10 +1,11 @@
 package server
 
 import (
+	"net/http"
+
 	"hot-coffee/internal/dal"
 	"hot-coffee/internal/handler"
 	"hot-coffee/internal/service"
-	"net/http"
 )
 
 func Router() *http.ServeMux {
@@ -22,11 +23,11 @@ func Router() *http.ServeMux {
 
 	orderHandler := handler.NewOrderHandler(orderService)
 
-	
 	r.HandleFunc("GET /menu", menuHandler.GetAll)
 	r.HandleFunc("GET /menu/{id}", menuHandler.Get)
 	r.HandleFunc("GET /order", orderHandler.GetAll)
 	r.HandleFunc("GET /order/{id}", orderHandler.Get)
+	r.HandleFunc("DELETE /order/{id}", orderHandler.DeleteById)
 
 	return r
 }
