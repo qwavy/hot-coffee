@@ -1,8 +1,5 @@
 package handler
 
-//
-//import "hot-coffee/internal/service"
-//
 //type Handlers struct {
 //	Inventory *InventoryHandler
 //	Menu      *MenuHandler
