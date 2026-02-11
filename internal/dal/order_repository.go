@@ -80,3 +80,19 @@ func (r *OrderRepository) DeleteById(productId string) error {
 	}
 	return nil
 }
+
+func (r *OrderRepository) UpdateById(productId string, newOrder models.Order) error {
+	orders, err := r.listO()
+	if err != nil {
+		return err
+	}
+	for i, order := range orders {
+		if order.ID == productId {
+			newOrder.ID = productId
+			orders[i] = newOrder
+		}
+		r.write(orders)
+		return nil
+	}
+	return models.OrderItemNotFound
+}

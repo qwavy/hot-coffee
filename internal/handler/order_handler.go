@@ -1,11 +1,13 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"hot-coffee/internal/service"
 	"hot-coffee/internal/utils"
+	"hot-coffee/models"
 )
 
 type OrderHandler struct {
@@ -43,4 +45,20 @@ func (h *OrderHandler) DeleteById(w http.ResponseWriter, r *http.Request) {
 		utils.SendError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
+}
+
+func (h *OrderHandler) UpdateById(w http.ResponseWriter, r *http.Request) {
+	productId := r.PathValue("id")
+	var newOrder models.Order
+
+	if err := json.NewDecoder(r.Body).Decode(&newOrder); err != nil {
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if err := h.OrderService.UpdateById(productId, newOrder); err != nil {
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.WriteHeader(http.StatusOK)
 }
