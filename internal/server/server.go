@@ -1,9 +1,8 @@
-package router
+package server
 
 import (
-	"hot-coffee/internal/dal"
-	"hot-coffee/internal/handler"
-	"hot-coffee/internal/service"
+	"fmt"
+	"hot-coffee/internal/config"
 	"net/http"
 )
 
