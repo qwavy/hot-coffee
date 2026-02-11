@@ -31,7 +31,7 @@ func (r *MenuRepository) list() ([]models.MenuItem, error) {
 }
 
 func (r *MenuRepository) write(menuItems []models.MenuItem) error {
-	dat, err := json.Marshal(menuItems)
+	dat, err := json.MarshalIndent(menuItems, "", " ")
 	if err != nil {
 		return err
 	}
