@@ -9,3 +9,7 @@ type InventoryService struct {
 func NewInventoryService(inventoryRepository *dal.InventoryRepository) *InventoryService {
 	return &InventoryService{InventoryRepository: inventoryRepository}
 }
+
+func (s *InventoryService) GetAll() {
+	inventoryItems, err := s.InventoryRepository
+}

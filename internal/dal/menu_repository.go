@@ -1,9 +1,7 @@
 package dal
 
 import (
-	"encoding/json"
 	"hot-coffee/models"
-	"os"
 )
 
 type MenuRepository struct {
@@ -14,41 +12,12 @@ func NewMenuRepository(filePath string) *MenuRepository {
 	return &MenuRepository{filePath: filePath}
 }
 
-func (r *MenuRepository) list() ([]models.MenuItem, error) {
-	data, err := os.ReadFile(r.filePath)
-	if err != nil {
-		return nil, err
-	}
-
-	var menuItems []models.MenuItem
-
-	err = json.Unmarshal(data, &menuItems)
-	if err != nil {
-		return nil, err
-	}
-
-	return menuItems, nil
-}
-
-func (r *MenuRepository) write(menuItems []models.MenuItem) error {
-	dat, err := json.MarshalIndent(menuItems, "", " ")
-	if err != nil {
-		return err
-	}
-	err = os.WriteFile(r.filePath, dat, 0644)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (r *MenuRepository) GetAll() ([]models.MenuItem, error) {
-	return r.list()
+	return list(r.filePath)
 }
 
 func (r *MenuRepository) GetById(productId string) (*models.MenuItem, error) {
-	menuItems, err := r.list()
+	menuItems, err := list(r.filePath)
 
 	if err != nil {
 		return nil, err
@@ -64,7 +33,7 @@ func (r *MenuRepository) GetById(productId string) (*models.MenuItem, error) {
 }
 
 func (r *MenuRepository) DeleteById(productId string) error {
-	menuItems, err := r.list()
+	menuItems, err := list(r.filePath)
 
 	if err != nil {
 		return err
@@ -78,7 +47,7 @@ func (r *MenuRepository) DeleteById(productId string) error {
 		}
 	}
 
-	err = r.write(newMenuItems)
+	err = write(newMenuItems, r.filePath)
 
 	if err != nil {
 		return err
@@ -88,15 +57,14 @@ func (r *MenuRepository) DeleteById(productId string) error {
 }
 
 func (r *MenuRepository) CreateItem(menuItem models.MenuItem) error {
-	menuItems, err := r.list()
+	menuItems, err := list(r.filePath)
 
 	if err != nil {
 		return err
 	}
 
 	menuItems = append(menuItems, menuItem)
-
-	err = r.write(menuItems)
+	err = write(menuItems, r.filePath)
 
 	if err != nil {
 		return err
@@ -106,7 +74,7 @@ func (r *MenuRepository) CreateItem(menuItem models.MenuItem) error {
 }
 
 func (r *MenuRepository) UpdateItem(productId string, newMenuItem models.MenuItem) error {
-	menuItems, err := r.list()
+	menuItems, err := list(r.filePath)
 
 	if err != nil {
 		return err
@@ -117,7 +85,12 @@ func (r *MenuRepository) UpdateItem(productId string, newMenuItem models.MenuIte
 			newMenuItem.ID = productId
 			menuItems[i] = newMenuItem
 
-			r.write(menuItems)
+			err = write(menuItems, r.filePath)
+
+			if err != nil {
+				return err
+			}
+
 			return nil
 		}
 	}

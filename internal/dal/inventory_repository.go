@@ -7,3 +7,5 @@ type InventoryRepository struct {
 func NewInventoryRepository(filePath string) *InventoryRepository {
 	return &InventoryRepository{filePath: filePath}
 }
+
+//func
