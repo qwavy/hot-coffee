@@ -10,17 +10,17 @@ import (
 func Router() *http.ServeMux {
 	r := http.NewServeMux()
 
-	menuRepository := dal.NewMenuRepository("data/menu_items.json")
+	repositories := dal.NewRepositories("data/inventory.json", "data/menu_items.json", "data/orders.json")
+	services := service.NewServices(repositories)
+	handlers := handler.NewHandlers(services)
 
-	menuService := service.NewMenuService(menuRepository)
+	r.HandleFunc("GET /menu", handlers.Menu.GetAll)
+	r.HandleFunc("GET /menu/{id}", handlers.Menu.GetById)
+	r.HandleFunc("DELETE /menu/{id}", handlers.Menu.DeleteById)
+	r.HandleFunc("POST /menu", handlers.Menu.CreateItem)
+	r.HandleFunc("PUT /menu/{id}", handlers.Menu.UpdateItem)
 
-	menuHandler := handler.NewMenuHandler(menuService)
-
-	r.HandleFunc("GET /menu", menuHandler.GetAll)
-	r.HandleFunc("GET /menu/{id}", menuHandler.GetById)
-	r.HandleFunc("DELETE /menu/{id}", menuHandler.DeleteById)
-	r.HandleFunc("POST /menu", menuHandler.CreateItem)
-	r.HandleFunc("PUT /menu/{id}", menuHandler.UpdateItem)
+	//r.HandleFunc("GET /inventory", handlers.Inventory.GetAll)
 
 	return r
 }
