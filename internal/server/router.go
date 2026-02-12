@@ -22,9 +22,9 @@ func Router() *http.ServeMux {
 
 	r.HandleFunc("GET /inventory", handlers.Inventory.GetAll)
 	r.HandleFunc("GET /inventory/{id}", handlers.Inventory.GetById)
-	r.HandleFunc("POST /inventory", handlers.Inventory.GetAll)
-	r.HandleFunc("PUT /inventory/{id}", handlers.Inventory.GetAll)
-	r.HandleFunc("DELETE /inventory/{id}", handlers.Inventory.GetAll)
+	r.HandleFunc("POST /inventory", handlers.Inventory.Create)
+	r.HandleFunc("PUT /inventory/{id}", handlers.Inventory.UpdateById)
+	r.HandleFunc("DELETE /inventory/{id}", handlers.Inventory.DeleteById)
 
 	return r
 }

@@ -30,3 +30,27 @@ func (s *InventoryService) GetById(id string) (item *models.InventoryItem, err e
 
 	return inventoryItem, nil
 }
+
+func (s *InventoryService) Create(item models.InventoryItem) error {
+	err := s.InventoryRepository.Create(item)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *InventoryService) Update(id string, item models.InventoryItem) error {
+	err := s.InventoryRepository.Update(id, item)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *InventoryService) DeleteById(id string) (err error) {
+	return s.InventoryRepository.DeleteById(id)
+}
