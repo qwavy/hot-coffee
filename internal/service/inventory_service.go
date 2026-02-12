@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"hot-coffee/internal/dal"
 	"hot-coffee/models"
 )
@@ -32,7 +33,14 @@ func (s *InventoryService) GetById(id string) (item *models.InventoryItem, err e
 }
 
 func (s *InventoryService) Create(item models.InventoryItem) error {
-	err := s.InventoryRepository.Create(item)
+
+	err := item.Validate()
+
+	if err != nil {
+		return err
+	}
+
+	err = s.InventoryRepository.Create(item)
 
 	if err != nil {
 		return err
@@ -42,8 +50,15 @@ func (s *InventoryService) Create(item models.InventoryItem) error {
 }
 
 func (s *InventoryService) Update(id string, item models.InventoryItem) error {
-	err := s.InventoryRepository.Update(id, item)
+	err := item.Validate()
 
+	if err != nil {
+		return err
+	}
+
+	err = s.InventoryRepository.Update(id, item)
+
+	fmt.Println(item)
 	if err != nil {
 		return err
 	}
