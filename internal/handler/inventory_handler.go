@@ -22,3 +22,13 @@ func (h *InventoryHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	}
 	utils.SendJSON(w, http.StatusOK, inventoryItems)
 }
+
+func (h *InventoryHandler) GetById(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+	inventoryItems, err := h.InventoryService.GetById(id)
+
+	if err != nil {
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
+	}
+	utils.SendJSON(w, http.StatusOK, inventoryItems)
+}

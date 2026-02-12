@@ -21,6 +21,10 @@ func Router() *http.ServeMux {
 	r.HandleFunc("PUT /menu/{id}", handlers.Menu.UpdateItem)
 
 	r.HandleFunc("GET /inventory", handlers.Inventory.GetAll)
+	r.HandleFunc("GET /inventory/{id}", handlers.Inventory.GetById)
+	r.HandleFunc("POST /inventory", handlers.Inventory.GetAll)
+	r.HandleFunc("PUT /inventory/{id}", handlers.Inventory.GetAll)
+	r.HandleFunc("DELETE /inventory/{id}", handlers.Inventory.GetAll)
 
 	return r
 }

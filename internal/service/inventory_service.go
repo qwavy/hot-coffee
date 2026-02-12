@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"hot-coffee/internal/dal"
 	"hot-coffee/models"
 )
@@ -16,10 +15,18 @@ func NewInventoryService(inventoryRepository *dal.InventoryRepository) *Inventor
 
 func (s *InventoryService) GetAll() ([]models.InventoryItem, error) {
 	inventoryItems, err := s.InventoryRepository.GetAll()
-	fmt.Println(inventoryItems)
 	if err != nil {
 		return nil, err
 	}
 
 	return inventoryItems, nil
+}
+
+func (s *InventoryService) GetById(id string) (item *models.InventoryItem, err error) {
+	inventoryItem, err := s.InventoryRepository.GetById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return inventoryItem, nil
 }
