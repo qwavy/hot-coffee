@@ -13,11 +13,11 @@ func NewMenuRepository(filePath string) *MenuRepository {
 }
 
 func (r *MenuRepository) GetAll() ([]models.MenuItem, error) {
-	return list(r.filePath)
+	return list[[]models.MenuItem](r.filePath)
 }
 
 func (r *MenuRepository) GetById(productId string) (*models.MenuItem, error) {
-	menuItems, err := list(r.filePath)
+	menuItems, err := list[[]models.MenuItem](r.filePath)
 
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func (r *MenuRepository) GetById(productId string) (*models.MenuItem, error) {
 }
 
 func (r *MenuRepository) DeleteById(productId string) error {
-	menuItems, err := list(r.filePath)
+	menuItems, err := list[[]models.MenuItem](r.filePath)
 
 	if err != nil {
 		return err
@@ -57,7 +57,7 @@ func (r *MenuRepository) DeleteById(productId string) error {
 }
 
 func (r *MenuRepository) CreateItem(menuItem models.MenuItem) error {
-	menuItems, err := list(r.filePath)
+	menuItems, err := list[[]models.MenuItem](r.filePath)
 
 	if err != nil {
 		return err
@@ -74,7 +74,7 @@ func (r *MenuRepository) CreateItem(menuItem models.MenuItem) error {
 }
 
 func (r *MenuRepository) UpdateItem(productId string, newMenuItem models.MenuItem) error {
-	menuItems, err := list(r.filePath)
+	menuItems, err := list[[]models.MenuItem](r.filePath)
 
 	if err != nil {
 		return err

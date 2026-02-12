@@ -20,27 +20,32 @@ func NewRepositories(inventoryRepositoryFilepath, menuRepositoryFilepath, orderR
 	}
 }
 
-func list(filePath string) ([]models.MenuItem, error) {
+type ListModels interface {
+	[]models.MenuItem | []models.OrderItem | []models.InventoryItem
+}
+
+func list[T ListModels](filePath string) (T, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
 
-	var menuItems []models.MenuItem
+	var items T
 
-	err = json.Unmarshal(data, &menuItems)
+	err = json.Unmarshal(data, &items)
 	if err != nil {
 		return nil, err
 	}
 
-	return menuItems, nil
+	return items, nil
 }
 
-func write(menuItems []models.MenuItem, filePath string) error {
-	dat, err := json.MarshalIndent(menuItems, "", " ")
+func write[T ListModels](items T, filePath string) error {
+	dat, err := json.MarshalIndent(items, "", " ")
 	if err != nil {
 		return err
 	}
+
 	err = os.WriteFile(filePath, dat, 0644)
 	if err != nil {
 		return err
