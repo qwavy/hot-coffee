@@ -47,6 +47,28 @@ func (h *OrderHandler) DeleteById(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (h *OrderHandler) Create(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	var order models.Order
+
+	err := json.NewDecoder(r.Body).Decode(&order)
+
+	if err != nil {
+		utils.SendError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	err = h.OrderService.Create(order)
+
+	if err != nil {
+		utils.SendError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+}
+
 func (h *OrderHandler) UpdateById(w http.ResponseWriter, r *http.Request) {
 	productId := r.PathValue("id")
 	var newOrder models.Order

@@ -10,7 +10,7 @@ type InventoryItem struct {
 }
 
 var (
-	InventoryItemFound         = errors.New("menu item not found")
+	InventoryItemFound         = errors.New("inventory item not found")
 	InventoryItemAlreadyExists = errors.New("inventory item with this id already exists")
 )
 

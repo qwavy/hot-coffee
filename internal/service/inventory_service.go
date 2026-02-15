@@ -56,7 +56,7 @@ func (s *InventoryService) Update(id string, item models.InventoryItem) error {
 		return err
 	}
 
-	err = s.InventoryRepository.Update(id, item)
+	err = s.InventoryRepository.UpdateById(id, item)
 
 	fmt.Println(item)
 	if err != nil {

@@ -13,15 +13,19 @@ type Repositories struct {
 }
 
 func NewRepositories(inventoryRepositoryFilepath, menuRepositoryFilepath, orderRepositoryFilepath string) *Repositories {
+	inventoryRepository := NewInventoryRepository(inventoryRepositoryFilepath)
+	menuRepository := NewMenuRepository(menuRepositoryFilepath)
+	orderRepository := NewOrderRepository(orderRepositoryFilepath, menuRepository, inventoryRepository)
+
 	return &Repositories{
-		Inventory: NewInventoryRepository(inventoryRepositoryFilepath),
-		Menu:      NewMenuRepository(menuRepositoryFilepath),
-		Order:     NewOrderRepository(orderRepositoryFilepath),
+		Inventory: inventoryRepository,
+		Menu:      menuRepository,
+		Order:     orderRepository,
 	}
 }
 
 type ListModels interface {
-	[]models.MenuItem | []models.OrderItem | []models.InventoryItem
+	[]models.MenuItem | []models.Order | []models.InventoryItem
 }
 
 func list[T ListModels](filePath string) (T, error) {

@@ -8,11 +8,13 @@ import (
 )
 
 type OrderRepository struct {
-	filePath string
+	filePath            string
+	menuRepository      *MenuRepository
+	inventoryRepository *InventoryRepository
 }
 
-func NewOrderRepository(filePath string) *OrderRepository {
-	return &OrderRepository{filePath: filePath}
+func NewOrderRepository(filePath string, menuRepository *MenuRepository, inventoryRepository *InventoryRepository) *OrderRepository {
+	return &OrderRepository{filePath: filePath, menuRepository: menuRepository, inventoryRepository: inventoryRepository}
 }
 
 func (r *OrderRepository) write(orders []models.Order) error {
@@ -78,6 +80,23 @@ func (r *OrderRepository) DeleteById(productId string) error {
 	if writerErr != nil {
 		return err
 	}
+	return nil
+}
+
+func (r *OrderRepository) Create(order models.Order) error {
+	orders, err := list[[]models.Order](r.filePath)
+
+	if err != nil {
+		return err
+	}
+
+	orders = append(orders, order)
+	err = write[[]models.Order](orders, r.filePath)
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

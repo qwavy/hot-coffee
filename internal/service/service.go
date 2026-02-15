@@ -12,6 +12,6 @@ func NewServices(repositories *dal.Repositories) *Services {
 	return &Services{
 		Inventory: NewInventoryService(repositories.Inventory),
 		Menu:      NewMenuService(repositories.Menu),
-		Order:     NewOrderService(repositories.Order),
+		Order:     NewOrderService(repositories.Order, repositories.Menu, repositories.Inventory),
 	}
 }

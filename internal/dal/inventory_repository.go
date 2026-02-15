@@ -49,7 +49,7 @@ func (r *InventoryRepository) Create(item models.InventoryItem) error {
 	return nil
 }
 
-func (r *InventoryRepository) Update(id string, newInventoryItem models.InventoryItem) error {
+func (r *InventoryRepository) UpdateById(id string, newInventoryItem models.InventoryItem) error {
 	inventoryItems, err := list[[]models.InventoryItem](r.filePath)
 
 	if err != nil {

@@ -6,63 +6,27 @@
   "unit": "shots"
  },
  {
+  "ingredient_id": "milk",
+  "name": "Milk",
+  "quantity": 5000,
+  "unit": "ml"
+ },
+ {
   "ingredient_id": "flour",
-  "name": "NEW Flour",
-  "quantity": 20000,
+  "name": "Flour",
+  "quantity": 9900,
   "unit": "g"
  },
  {
   "ingredient_id": "blueberries",
   "name": "Blueberries",
-  "quantity": 2000,
+  "quantity": 1980,
   "unit": "g"
  },
  {
-  "ingredient_id": "second_flour",
-  "name": "SECOND Flour",
-  "quantity": 20000,
+  "ingredient_id": "sugar",
+  "name": "Sugar",
+  "quantity": 4970,
   "unit": "g"
- },
- {
-  "ingredient_id": "third_flour",
-  "name": "SECOND Flour",
-  "quantity": 20000,
-  "unit": ""
- },
- {
-  "ingredient_id": "third_flour",
-  "name": "",
-  "quantity": 0,
-  "unit": ""
- },
- {
-  "ingredient_id": "fi",
-  "name": "",
-  "quantity": 0,
-  "unit": ""
- },
- {
-  "ingredient_id": "fi",
-  "name": "",
-  "quantity": 0,
-  "unit": ""
- },
- {
-  "ingredient_id": "fi",
-  "name": "",
-  "quantity": 0,
-  "unit": ""
- },
- {
-  "ingredient_id": "fi",
-  "name": "",
-  "quantity": 0,
-  "unit": ""
- },
- {
-  "ingredient_id": "fi",
-  "name": "",
-  "quantity": 0,
-  "unit": ""
  }
 ]
