@@ -15,6 +15,10 @@ type OrderItem struct {
 	Quantity  int    `json:"quantity"`
 }
 
+var (
+	OrderItemNotFound = errors.New("order item not found")
+)
+
 func (item *Order) Validate() error {
 	if item.ID == "" {
 		return errors.New("ID is required")
