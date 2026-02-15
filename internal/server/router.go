@@ -1,38 +1,30 @@
 package server
 
 import (
-	"net/http"
-
 	"hot-coffee/internal/dal"
 	"hot-coffee/internal/handler"
 	"hot-coffee/internal/service"
+	"net/http"
 )
 
 func Router() *http.ServeMux {
 	r := http.NewServeMux()
 
-	menuRepository := dal.NewMenuRepository("data/menu_items.json")
+	repositories := dal.NewRepositories("data/inventory.json", "data/menu_items.json", "data/orders.json")
+	services := service.NewServices(repositories)
+	handlers := handler.NewHandlers(services)
 
-	menuService := service.NewMenuService(menuRepository)
+	r.HandleFunc("GET /menu", handlers.Menu.GetAll)
+	r.HandleFunc("GET /menu/{id}", handlers.Menu.GetById)
+	r.HandleFunc("DELETE /menu/{id}", handlers.Menu.DeleteById)
+	r.HandleFunc("POST /menu", handlers.Menu.CreateItem)
+	r.HandleFunc("PUT /menu/{id}", handlers.Menu.UpdateItem)
 
-	menuHandler := handler.NewMenuHandler(menuService)
-
-	orderRepository := dal.NewOrderRepository("data/orders.json")
-
-	orderService := service.NewOrderService(orderRepository)
-
-	orderHandler := handler.NewOrderHandler(orderService)
-
-	r.HandleFunc("GET /menu", menuHandler.GetAll)
-	r.HandleFunc("GET /menu/{id}", menuHandler.Get)
-	// Order
-	// POST /orders
-	// PUT /orders/{id}
-	// POST /orders/{id}/close
-	r.HandleFunc("GET /order", orderHandler.GetAll)
-	r.HandleFunc("GET /order/{id}", orderHandler.Get)
-	r.HandleFunc("DELETE /order/{id}", orderHandler.DeleteById)
-	r.HandleFunc("PUT /order/{id}", orderHandler.UpdateById)
+	r.HandleFunc("GET /inventory", handlers.Inventory.GetAll)
+	r.HandleFunc("GET /inventory/{id}", handlers.Inventory.GetById)
+	r.HandleFunc("POST /inventory", handlers.Inventory.Create)
+	r.HandleFunc("PUT /inventory/{id}", handlers.Inventory.UpdateById)
+	r.HandleFunc("DELETE /inventory/{id}", handlers.Inventory.DeleteById)
 
 	return r
 }

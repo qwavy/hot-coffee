@@ -3,6 +3,8 @@ package config
 import (
 	"errors"
 	"flag"
+	"log/slog"
+	"os"
 )
 
 type Config struct {
@@ -44,9 +46,16 @@ func Parse(args []string) (Config, error) {
 		return Config{}, errors.New("directory is empty")
 	}
 
+	log := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
+	slog.SetDefault(log)
+
 	return Config{
 		Port: *port,
 		Dir:  *dir,
 		Help: *help,
 	}, nil
+}
+
+func SetupLogger() {
+
 }

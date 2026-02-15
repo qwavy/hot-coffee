@@ -18,3 +18,31 @@ type MenuItemIngredient struct {
 var (
 	MenuItemNotFound = errors.New("menu item not found")
 )
+
+func (item *MenuItem) Validate() error {
+	if item.ID == "" {
+		return errors.New("ID is required")
+	}
+
+	if item.Name == "" {
+		return errors.New("name is required")
+	}
+
+	if item.Description == "" {
+		return errors.New("Description is required")
+	}
+
+	if item.Price == 0 {
+		return errors.New("unit is required")
+	}
+
+	if item.Price == 0 {
+		return errors.New("unit is required")
+	}
+
+	if len(item.Ingredients) == 0 {
+		return errors.New("ingredients is required")
+	}
+
+	return nil
+}
